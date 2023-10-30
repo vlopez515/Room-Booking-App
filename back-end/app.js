@@ -5,11 +5,13 @@ const app = express();
 
 // CONTROLLERS
 const bookingsController = require("./controllers/bookingsController");
+const meetingRoomsController = require("./controllers/meetingRoomsController")
 
 app.use(cors());
 app.use(express.json()); 
 
 app.use("/bookings", bookingsController);
+app.use("/meetingRooms", meetingRoomsController);
 
 
 app.get("/", (req, res) => {

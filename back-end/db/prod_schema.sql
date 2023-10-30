@@ -9,10 +9,11 @@ CREATE TABLE bookings (
     attendees NUMBER, 
 );
 
-DROP TABLE IF EXISTS meeting_room;
+DROP TABLE IF EXISTS meetingRooms;
 
-CREATE TABLE meeting_room (
+CREATE TABLE meetingRooms (
     id SERIAL PRIMARY KEY, 
     name TEXT, 
     capacity NUMBER,
+    floor NUMBER,
 );

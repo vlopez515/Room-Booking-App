@@ -1,7 +1,7 @@
 const express = require("express");
 const bookings = express.Router();
 const {
-  getAllbookings,
+  getAllBookings,
   getBooking,
   createBooking,
   deleteBooking,
@@ -10,7 +10,7 @@ const {
 
 
 bookings.get("/", async (req, res) => {
-  const allbookings = await getAllbookings();
+  const allbookings = await getAllBookings();
   if (allbookings[0]) {
     res.status(200).json(allbookings);
   } else {
