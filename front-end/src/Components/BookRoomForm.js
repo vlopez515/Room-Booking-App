@@ -1,7 +1,7 @@
 import React from 'react';
 import MeetingRoomDetails from './MeetingRoomDetails';
 
-function MeetingRoomForm() {
+function BookRoomForm() {
   return (
     <>
 <section className="p-6 dark:bg-gray-800 dark:text-gray-50">
@@ -34,11 +34,9 @@ function MeetingRoomForm() {
 		</fieldset>
         </form>
 	</section>
-    
-    <MeetingRoomDetails />
-    
+    <MeetingRoomDetails />  
     </>
   )
 }
 
-export default MeetingRoomForm
+export default BookRoomForm;

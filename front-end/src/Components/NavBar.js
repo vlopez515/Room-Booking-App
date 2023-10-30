@@ -12,7 +12,7 @@ function NavBar() {
 		</a> */}
 		<ul className="items-stretch space-x-20 flex">
 			<li className="flex">
-                <Link to="/home" class="flex items-center px-4 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Meeting Rooms</Link>
+                <Link to="/" class="flex items-center px-4 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Meeting Rooms</Link>
 			</li>
 			<li className="flex">
                 <Link to="/bookings" class="flex items-center px-4 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Bookings</Link>

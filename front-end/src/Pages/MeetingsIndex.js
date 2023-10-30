@@ -1,8 +1,10 @@
-import React from 'react'
+import React from 'react';
+import MeetingRoomsCard from '../Components/MeetingRoomsCard';
+
 
 function MeetingsIndex() {
   return (
-    <div>MeetingsIndex</div>
+    <div><MeetingRoomsCard /></div>
   )
 }
 

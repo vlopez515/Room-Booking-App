@@ -1,5 +1,5 @@
 import React from 'react';
-import MeetingRoomForm from '../Components/MeetingRoomForm';
+import MeetingRoomForm from '../Components/BookRoomForm';
 
 function Show() {
   return (

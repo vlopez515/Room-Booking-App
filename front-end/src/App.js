@@ -22,7 +22,7 @@ function App() {
             <Route path="/meeting-rooms/new" element={<New />} />
             <Route path="/bookings/" element={<Index/>} />
             <Route path="/bookings/:id" element={<Show />} />
-            <Route path="*" element={<FourOFour />} />
+            <Route path="/error" element={<FourOFour />} />
           </Routes>
         </main>
       </Router>

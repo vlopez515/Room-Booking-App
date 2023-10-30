@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import MeetingRoomForm from './BookRoomForm';
 
 function MeetingRoom() {
   return (
-    <div>MeetingRoom</div>
+    <div> <MeetingRoomForm /></div>
   )
 }
 

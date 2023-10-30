@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import FindRoomForm from "../Components/FindRoomForm";
+import MeetingRooms from "../Components/MeetingRooms";
 
 function Home() {
   return (
-    <div>Home</div>
-  )
+    <>
+      <div>
+        <FindRoomForm />
+      </div>
+      <div>
+        <MeetingRooms />
+      </div>
+    </>
+  );
 }
 
-export default Home
+export default Home;

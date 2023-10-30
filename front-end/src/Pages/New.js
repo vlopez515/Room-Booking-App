@@ -1,9 +1,10 @@
 import React from 'react';
+import MeetingRoomForm from '../Components/BookRoomForm';
 
 
 function New() {
   return (
-    <div> New </div>
+    <div> <MeetingRoomForm /> </div>
   )
 }
 
