@@ -1,6 +1,6 @@
 INSERT INTO bookings (meeting_name, meetingRoom_id, start_date, end_date, attendees) VALUES
-('Scrum Standup', 1, 2022-03-30 09:30:00, 2022-03-30 09:45:00, 3),
-('Scrum Standup', 1, 2022-03-30 09:30:00, 2022-03-30 09:45:00, 3);
+('Scrum Standup', 1, '2022-03-30 09:30:00', '2022-03-30 09:45:00', 3),
+('Scrum Standup', 1, '2022-03-30 09:30:00', '2022-03-30 09:45:00', 3);
 
 INSERT INTO meetingRooms (name, capacity, floor) VALUES 
 ('Meeting Room 1', 6, 22),
