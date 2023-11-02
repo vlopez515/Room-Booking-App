@@ -11,7 +11,9 @@ const getAllMeetingRooms= async () => {
 
 const getMeetingRoom = async (id) => {
   try {
+    console.log(id);
     const oneMeetingRoom = await db.one('SELECT * FROM meetingRooms WHERE id=$1', id);
+    console.log(`Finished oneMeetingRoom ${true}`);
     return oneMeetingRoom;
   } catch (error) {
     return error;

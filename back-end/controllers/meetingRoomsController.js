@@ -20,8 +20,32 @@ meetingRooms.get("/", async (req, res) => {
   }
 });
 
+meetingRooms.get("/available", async (req, res) => {
+    const { startDate, endDate, capacity } = req.query;
+  
+    try {
+      const allMeetingRooms = await getAllMeetingRooms();
+      const bookingsBetweenDates = await getBookingsBetweenDates(startDate, endDate);
+      console.log(getBookingsBetweenDates())
+  
+      const filteredRooms = allMeetingRooms.filter(room => {
+      const bookingsForRoom = bookingsBetweenDates.filter(booking => booking.meeting_room_id === room.id);
+      const isAvailable = !bookingsForRoom.length;
+      const capacityMatch = capacity ? room.capacity >= parseInt(capacity, 10) : true;
+  
+        return isAvailable && capacityMatch;
+      });
+  
+      res.json(filteredRooms);
+    } catch (error) {
+      console.error('Error fetching available meeting rooms:', error);
+      res.status(500).json({ error: 'Error fetching available meeting rooms' });
+    }
+  });
+
 meetingRooms.get("/:id", async (req, res) => {
   const { id } = req.params;
+  console.log("calling getMeetingRoom()");
   const meetingRoom = await getMeetingRoom(id);
   if (meetingRoom) {
     res.json(meetingRoom);
@@ -60,27 +84,5 @@ meetingRooms.put("/:id", async (req, res) => {
   }
 });
 
-meetingRooms.get("/available", async (req, res) => {
-    const { startDate, endDate, capacity } = req.query;
-  
-    try {
-      const allMeetingRooms = await getAllMeetingRooms();
-      const bookingsBetweenDates = await getBookingsBetweenDates(startDate, endDate);
-      console.log(bookingsBetweenDates())
-  
-      const filteredRooms = allMeetingRooms.filter(room => {
-      const bookingsForRoom = bookingsBetweenDates.filter(booking => booking.meeting_room_id === room.id);
-      const isAvailable = !bookingsForRoom.length;
-      const capacityMatch = capacity ? room.capacity >= parseInt(capacity, 10) : true;
-  
-        return isAvailable && capacityMatch;
-      });
-  
-      res.json(filteredRooms);
-    } catch (error) {
-      console.error('Error fetching available meeting rooms:', error);
-      res.status(500).json({ error: 'Error fetching available meeting rooms' });
-    }
-  });
 
 module.exports = meetingRooms;
