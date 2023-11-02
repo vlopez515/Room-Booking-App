@@ -13,7 +13,6 @@ app.use(express.json());
 app.use("/bookings", bookingsController);
 app.use("/meetingRooms", meetingRoomsController);
 
-
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });

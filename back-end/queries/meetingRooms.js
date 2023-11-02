@@ -54,6 +54,7 @@ const updatedMeetingRoom = await db.one("UPDATE meeting_room SET name=$1, capaci
   }
 }
 
+
 module.exports = { 
     getAllMeetingRooms, 
     getMeetingRoom, 

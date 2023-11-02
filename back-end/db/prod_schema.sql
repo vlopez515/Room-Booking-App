@@ -15,3 +15,5 @@ CREATE TABLE bookings (
     end_date TIMESTAMP, 
     attendees INTEGER
 );
+
+

@@ -5,7 +5,7 @@ const {
   getBooking,
   createBooking,
   deleteBooking,
-  updateBooking
+  updateBooking,
 } = require("../queries/bookings.js");
 
 
@@ -57,5 +57,6 @@ bookings.put("/:id", async (req, res) => {
     res.status(404).json({error: "Booking NOT updated"});
   }
 })
+
 
 module.exports = bookings;
