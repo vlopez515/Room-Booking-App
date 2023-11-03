@@ -6,9 +6,12 @@ import Home from "./Pages/Home";
 import Index from "./Pages/MeetingsIndex";
 import New from "./Pages/New";
 import Show from "./Pages/Show";
+import BookingsIndex from "./Pages/BookingsIndex";
+
 
 // COMPONENTS
 import NavBar from "./Components/NavBar";
+
 
 function App() {
   return (
@@ -20,7 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/meeting-rooms/:id" element={<Show />} />
             <Route path="/meeting-rooms/new" element={<New />} />
-            <Route path="/bookings/" element={<Index/>} />
+            <Route path="/bookings/" element={<BookingsIndex />} />
             <Route path="/bookings/:id" element={<Show />} />
             <Route path="/error" element={<FourOFour />} />
           </Routes>

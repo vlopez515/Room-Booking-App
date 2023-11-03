@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import Bookings from '../Components/Bookings';
 
 function BookingsIndex() {
   return (
-    <div>BookingsIndex</div>
+    <div> <Bookings /></div>
   )
 }
 

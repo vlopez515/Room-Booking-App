@@ -1,9 +1,13 @@
 import React from 'react';
 import MeetingRoomForm from './BookRoomForm';
 
-function MeetingRoom() {
+function MeetingRoom( {room }) {
   return (
-    <div> <MeetingRoomForm /></div>
+    <>
+    <div> {room.name} </div>
+    <div> Floor: {room.floor} </div>
+    <div> Capacity: {room.capacity} </div>
+    </>
   )
 }
 

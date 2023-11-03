@@ -1,10 +1,10 @@
 import React from 'react';
-import MeetingRoomForm from '../Components/BookRoomForm';
+import CreateRoomForm from '../Components/CreateRoomForm';
 
 
 function New() {
   return (
-    <div> <MeetingRoomForm /> </div>
+    <div> <CreateRoomForm /> </div>
   )
 }
 

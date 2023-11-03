@@ -1,29 +1,28 @@
-import React from "react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import MeetingRoom from './MeetingRoom';
 
-
+const API = process.env.REACT_APP_API_URL;
 
 function MeetingRooms() {
+  
+const [meetingRooms, setMeetingRooms] = useState([]);
+
+useEffect(() => {
+    axios
+      .get(`${API}/meetingRooms`)
+      .then((response) => setMeetingRooms(response.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
-    <div className="p-6 sm:p-12 dark:bg-gray-900 dark:text-gray-100">
-      <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
-        <div className="flex flex-col">
-          <h4 className="text-lg font-semibold text-center md:text-left">
-            Name of room
-          </h4>
-          <p className="dark:text-gray-400">
-           
-          </p>
+    <div>
+      <div className="room">
+        {meetingRooms.map((room) => {
+          return <MeetingRoom key={room.id} room={room} /> 
+        })}
         </div>
       </div>
-      <div className="flex flex-col">
-        <h4 className="text-sm font-semibold text-center sm:text-left">
-          Name of room
-        </h4>
-        <p className="dark:text-gray-400" >
-          
-        </p>
-      </div>
-    </div>
   );
 }
 

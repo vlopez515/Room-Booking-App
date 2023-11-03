@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Booking({ booked, id }) {
+function Booking({ booking, id }) {
   const {
     name,
     meeting_name,
@@ -8,7 +8,7 @@ function Booking({ booked, id }) {
     start_date,
     end_date,
     attendees,
-  } = booked;
+  } = booking;
 
 
   return (
@@ -25,7 +25,7 @@ function Booking({ booked, id }) {
           </div>
           <div className="flex flex-col">
             <h4 className="text-sm font-semibold text-center sm:text-left">
-              {(new Date).datetoLocaleString(start_date)}
+              {start_date}
             </h4>
             <p className="dark:text-gray-400">{end_date}</p>
           </div>
