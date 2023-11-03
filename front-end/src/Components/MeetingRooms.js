@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function MeetingRooms() {
   return (
     <div className="p-6 sm:p-12 dark:bg-gray-900 dark:text-gray-100">
@@ -9,9 +10,7 @@ function MeetingRooms() {
             Name of room
           </h4>
           <p className="dark:text-gray-400">
-            Sed non nibh iaculis, posuere diam vitae, consectetur neque. Integer
-            velit ligula, semper sed nisl in, cursus commodo elit. Pellentesque
-            sit amet mi luctus ligula euismod lobortis ultricies et nibh.
+           
           </p>
         </div>
       </div>
@@ -20,9 +19,7 @@ function MeetingRooms() {
           Name of room
         </h4>
         <p className="dark:text-gray-400" >
-          Sed non nibh iaculis, posuere diam vitae, consectetur neque. Integer
-          velit ligula, semper sed nisl in, cursus commodo elit. Pellentesque
-          sit amet mi luctus ligula euismod lobortis ultricies et nibh.
+          
         </p>
       </div>
     </div>

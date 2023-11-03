@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+### Meeting Room Booking App README
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the backend and database scripts for a Meeting Room Booking App. The code is structured as follows:
 
-## Available Scripts
+*1. /queries directory*
 
-In the project directory, you can run:
+_bookings.js_
+Manages the database interactions related to bookings.
+Functions include:
+getAllBookings: Retrieves all bookings.
+getBooking: Fetches a single booking by ID.
+createBooking: Creates a new booking.
+deleteBooking: Deletes a booking.
+updateBooking: Updates booking details.
+getBookingsBetweenDates: Fetches bookings within a specified date range.
 
-### `npm start`
+_meetingRooms.js_
+Manages the database interactions related to meeting rooms.
+Functions include:
+getAllMeetingRooms: Retrieves all meeting rooms.
+getMeetingRoom: Fetches a single meeting room by ID.
+createMeetingRoom: Creates a new meeting room.
+deleteMeetingRoom: Deletes a meeting room.
+updateMeetingRoom: Updates meeting room details.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+*2. /controllers directory*
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+_bookingsController.js_
+Express Router for handling routes related to bookings.
+Endpoints include:
+GET /: Retrieves all bookings.
+GET /:id: Fetches a single booking by ID.
+POST /: Creates a new booking.
+DELETE /:id: Deletes a booking.
+PUT /:id: Updates booking details.
 
-### `npm test`
+_meetingRoomsController.js_
+Express Router for handling routes related to meeting rooms.
+Endpoints include:
+GET /: Retrieves all meeting rooms.
+GET /available: Fetches available meeting rooms based on a date range and optional capacity filter.
+GET /:id: Fetches a single meeting room by ID.
+POST /: Creates a new meeting room.
+DELETE /:id: Deletes a meeting room.
+PUT /:id: Updates meeting room details.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+*3. dbConfig.js*
+Sets up the database connection using pg-promise based on environment variables.
+Defines the tables meetingRooms and bookings along with initial data.
 
-### `npm run build`
+*4. app.js*
+Main application file setting up the Express server.
+Handles CORS, JSON parsing, and sets up routes for bookings and meeting rooms.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Setup Instructions**
+Ensure pg-promise, express, and other dependencies are installed.
+Set up a PostgreSQL database and configure the connection string using environment variables.
+Run the SQL script provided in dbConfig.js to create tables and insert sample data.
+Run the application using node app.js.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Usage**
+Use endpoints in the controllers to interact with the database for managing bookings and meeting rooms.
+Test the functionalities by making HTTP requests to the defined routes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

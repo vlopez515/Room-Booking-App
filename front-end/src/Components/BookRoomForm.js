@@ -1,4 +1,3 @@
-import React from 'react';
 import MeetingRoomDetails from './MeetingRoomDetails';
 
 function BookRoomForm() {
@@ -8,23 +7,23 @@ function BookRoomForm() {
 	<form novalidate="" action="" className="container flex flex-col mx-auto space-y-12">
 		<fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
 			<div className="space-y-2 col-span-full lg:col-span-1">
-				<p className="font-medium">Book Room</p>
+				<p className="font-medium">Book Room:</p>
 			</div>
 			<div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
 				<div className="col-span-full">
-					<label for="meetingname" className="text-sm">Meeting Name</label>
+					<label for="meetingname" className="text-sm">Meeting Name: </label>
 					<input id="meetingname" type="text" placeholder="" className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900" />
 				</div>
 				<div className="col-span-full">
-					<label for="start" className="text-sm">Start</label>
+					<label for="start" className="text-sm">Start: </label>
 					<input id="start" type="text" placeholder="Date & Time" className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900" />
 				</div>
                 <div className="col-span-full">
-					<label for="end" className="text-sm">End</label>
+					<label for="end" className="text-sm">End: </label>
 					<input id="end" type="text" placeholder="Date & Time" className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900" />
 				</div>
 				<div className="col-span-full">
-					<label for="attendees" className="text-sm">Attendees</label>
+					<label for="attendees" className="text-sm">Attendees: </label>
 					<input id="attendees" type="text" placeholder="Email" className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900" />
 				</div>
 				<div className="col-span-full">
@@ -34,7 +33,6 @@ function BookRoomForm() {
 		</fieldset>
         </form>
 	</section>
-    <MeetingRoomDetails />  
     </>
   )
 }
