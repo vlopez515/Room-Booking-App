@@ -8,7 +8,7 @@ function CreateRoomForm() {
     
     const addMeetingRoom = (newMeetingRoom) => {
        axios
-         .post(`${API}/MeetingRooms`, newMeetingRoom)
+         .post(`${API}/meetingRooms`, newMeetingRoom)
          .then(
            () => {
              redirect(`/meetingRooms`);
@@ -27,6 +27,7 @@ function CreateRoomForm() {
        event.preventDefault();
        addMeetingRoom(meetingRoom);
      };
+
   return (
     <>
 <section className="p-6 dark:bg-gray-800 dark:text-gray-50">

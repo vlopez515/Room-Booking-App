@@ -1,12 +1,12 @@
 import React from "react";
-import FindRoomForm from "../Components/FindRoomForm";
+import AvailableRooms from "../Components/AvailableRooms";
 import MeetingRooms from "../Components/MeetingRooms";
 
 function Home() {
   return (
     <>
       <div>
-        <FindRoomForm />
+        <AvailableRooms />
       </div>
       <div>
         <MeetingRooms />

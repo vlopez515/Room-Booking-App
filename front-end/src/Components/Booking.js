@@ -11,7 +11,6 @@ function Booking({ booked, id }) {
   } = booked;
 
 
-
   return (
     <Link to={`/bookings/${id}`} style={{ textDecoration: "none" }}>
       <div style={{ cursor: "pointer" }}>
