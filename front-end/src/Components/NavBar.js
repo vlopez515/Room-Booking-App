@@ -6,13 +6,13 @@ function NavBar() {
 	<div className="container flex justify-between h-16 mx-auto">
 		<ul className="items-stretch space-x-20 flex">
 			<li className="flex">
-                <Link to="/" class="flex items-center px-4 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Meeting Rooms</Link>
+                <Link to="/" className="flex items-center px-4 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Meeting Rooms</Link>
 			</li>
 			<li className="flex">
-                <Link to="/bookings" class="flex items-center px-4 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Bookings</Link>
+                <Link to="/bookings" className="flex items-center px-4 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">Bookings</Link>
 			</li>
 			<li className="flex">
-                <Link to="/meeting-rooms/new" class="flex items-center px-4 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">New Room</Link>
+                <Link to="/meeting-rooms/new" className="flex items-center px-4 border-b-2 dark:border-transparent dark:text-violet-400 dark:border-violet-400">New Room</Link>
 			</li>
 		</ul>
 		<div className="items-center flex-shrink-0 lg:flex">

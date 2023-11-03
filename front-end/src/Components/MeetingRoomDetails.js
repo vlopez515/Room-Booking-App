@@ -1,8 +1,8 @@
 import React from 'react'
 
-function MeetingRoomDetails() {
+function MeetingRoomDetails({ room }) {
   return (
-    <div>MeetingRoomDetails</div>
+    <div> {room.name} </div>
   )
 }
 

@@ -26,7 +26,7 @@ const createMeetingRoom = async (meetingRoom) => {
     const newMeetingRoom = await db.one(
       "INSERT INTO meetingRooms (name, capacity, floor) VALUES ($1, $2, $3) RETURNING *",
       [name, capacity, floor]
-
+      
     );
     return newMeetingRoom;
   } catch (error) {

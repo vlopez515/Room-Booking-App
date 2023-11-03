@@ -1,14 +1,18 @@
-import React from 'react';
-import MeetingRoomForm from './BookRoomForm';
+import React from "react";
+import { Link } from "react-router-dom";
+import MeetingRoomDetails from "./MeetingRoomDetails";
 
-function MeetingRoom( {room }) {
+
+function MeetingRoom({ room }) {
   return (
-    <>
-    <div> {room.name} </div>
-    <div> Floor: {room.floor} </div>
-    <div> Capacity: {room.capacity} </div>
-    </>
-  )
+    <Link to={`/meeting-rooms/${room.id}`} style={{ textDecoration: "none" }}>
+      <div style={{ cursor: "pointer" }}>
+        <div> {room.name} </div>
+        <div> Capacity: {room.capacity} </div>
+        <div> Floor: {room.floor} </div>
+      </div>
+    </Link>
+  );
 }
 
-export default MeetingRoom
+export default MeetingRoom;

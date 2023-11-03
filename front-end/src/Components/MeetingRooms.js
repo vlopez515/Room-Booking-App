@@ -19,7 +19,9 @@ useEffect(() => {
     <div>
       <div className="room">
         {meetingRooms.map((room) => {
-          return <MeetingRoom key={room.id} room={room} /> 
+          return (
+          <MeetingRoom key={room.id} room={room} /> 
+          )
         })}
         </div>
       </div>

@@ -1,5 +1,3 @@
-import MeetingRoomDetails from './MeetingRoomDetails';
-
 function BookRoomForm() {
   return (
     <>

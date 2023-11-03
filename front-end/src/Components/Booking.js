@@ -1,4 +1,9 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from "axios";
+
+const API = process.env.REACT_APP_API_URL;
+
 
 function Booking({ booking, id }) {
   const {
@@ -10,6 +15,21 @@ function Booking({ booking, id }) {
     attendees,
   } = booking;
 
+const [meetingRooms, setMeetingRooms] = useState([]);
+
+useEffect(() => {
+    axios
+      .get(`${API}/meetingRooms`)
+      .then((response) => setMeetingRooms(response.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  const findMeetingRoom = (roomId) => {
+    return meetingRooms.find(room => room.id === roomId);
+  };
+
+  const selectedMeetingRoom = findMeetingRoom(meeting_room_id);
+
 
   return (
     <Link to={`/bookings/${id}`} style={{ textDecoration: "none" }}>
@@ -18,7 +38,7 @@ function Booking({ booking, id }) {
           <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
             <div className="flex flex-col">
               <h4 className="text-lg font-semibold text-center md:text-left">
-                {meeting_room_id}
+                {selectedMeetingRoom ? selectedMeetingRoom.name : "Room Name"}
               </h4>
               <p className="dark:text-gray-400">{meeting_name}</p>
             </div>
