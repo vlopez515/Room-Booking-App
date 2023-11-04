@@ -5,22 +5,28 @@ const API = process.env.REACT_APP_API_URL;
 
 function AvailableRooms() {
   
-  const [meetingRooms, setMeetingRooms] = useState([]);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [floor, setFloor] = useState('');
-  const [capacity, setCapacity] = useState('');
+  const [availableRooms, setAvailableRooms] = useState([]);
 
+
+  
+ 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(event)
     try {
       const response = await axios.get(`${API}/meetingRooms/available`, {
-        params: { startDate, endDate, capacity }
+        params: { start_date, end_date, attendees }
       });
-      setMeetingRooms(response.data);
+      console.log(response.data)
+      setAvailableRooms(response.data);
     } catch (error) {
       console.error('Error fetching available meeting rooms:', error);
     }
+  };
+
+  const handleTextChange = (event) => {
+    // setAvailableRooms({ ...availableRooms, [event.target.id]: event.target.value });
+    event
   };
 
   
@@ -38,15 +44,14 @@ function AvailableRooms() {
             </div>
             <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
               <div className="col-span-full">
-                <label for="startDate" className="text-sm">
+                <label for="start" className="text-sm">
                   Start
                 </label>
                 <input
                   id="start"
                   type="datetime-local"
                   placeholder="Date & Time"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)} required
+                  onChange={handleTextChange}  
                   className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                 />
               </div>
@@ -58,8 +63,7 @@ function AvailableRooms() {
                   id="end"
                   type="datetime-local"
                   placeholder="Date & Time"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)} required
+                  onChange={handleTextChange} 
                   className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                 />
               </div>
@@ -69,8 +73,7 @@ function AvailableRooms() {
                 </label>
                 <input
                   type="number"
-                  value={floor}
-                  onChange={(e) => setFloor(e.target.value)}
+                  onChange={handleTextChange}
                   className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                 />
               </div>
@@ -80,8 +83,7 @@ function AvailableRooms() {
                 </label>
                 <input
                     type="number"
-                    value={capacity}
-                    onChange={(e) => setCapacity(e.target.value)}
+                    onChange={handleTextChange}
                   className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900"
                 />
               </div>
