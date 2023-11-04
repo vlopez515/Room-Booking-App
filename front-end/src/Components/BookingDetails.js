@@ -22,7 +22,7 @@ function BookingDetails({ rooms }) {
     const handleCancel = (e) => {
         console.log('hello')
     }
-    const specificRoom = rooms.find((room)=> room.id === booking.meeting_room_id)
+    const specificRoom = rooms?.find((room)=> room.id === booking.meeting_room_id)
 
   return (
     <>
@@ -30,9 +30,7 @@ function BookingDetails({ rooms }) {
         <p>Start: {new Date(booking.start_date).toLocaleString().replace(',','')} </p>
         <p>End: {new Date(booking.end_date).toLocaleString().replace(',','')} </p>
         <p>Floor: {specificRoom?.floor} </p>
-        <button onClick={(e)=>{handleCancel(e)}}>Cancel</button>
-          
-     
+        <button onClick={(e)=>{handleCancel(e)}}>Cancel</button>  
     </>
   )
 }
