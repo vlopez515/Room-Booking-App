@@ -5,7 +5,7 @@ import axios from "axios";
 const API = process.env.REACT_APP_API_URL;
 
 
-function Booking({ booking, id }) {
+function Booking({ booking, id}) {
   const {
     name,
     meeting_name,

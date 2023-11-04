@@ -7,9 +7,10 @@ import FourOFour from "./Pages/FourOFour";
 import Home from "./Pages/Home";
 import Index from "./Pages/MeetingsIndex";
 import New from "./Pages/New";
-import Show from "./Pages/Show";
+import ShowBooking from "./Pages/ShowBooking";
 import BookingsIndex from "./Pages/BookingsIndex";
 import ShowMeetingRoom from "./Pages/ShowMeetingRoom";
+
 
 // COMPONENTS
 import NavBar from "./Components/NavBar";
@@ -37,7 +38,7 @@ function App() {
             <Route path="/meeting-rooms/:id" element={<ShowMeetingRoom />} />
             <Route path="/meeting-rooms/new" element={<New />} />
             <Route path="/bookings/" element={<BookingsIndex rooms={meetingRooms} />} />
-            <Route path="/bookings/:id" element={<Show rooms={meetingRooms} /> } />
+            <Route path="/bookings/:id" element={<ShowBooking rooms={meetingRooms} /> } />
             <Route path="/error" element={<FourOFour />} />
           </Routes>
         </main>

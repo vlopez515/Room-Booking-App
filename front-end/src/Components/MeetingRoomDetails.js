@@ -22,10 +22,8 @@ function MeetingRoomDetails() {
   
     });
   }, [id]);
-  const formatDate = (d) => {
-    return new Date(d).toLocaleString();
-  }
   
+
   const conflicts = bookings.filter((booking) => booking.meeting_room_id === Number(id));
   console.log(conflicts)
   return (

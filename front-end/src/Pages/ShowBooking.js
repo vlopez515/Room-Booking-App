@@ -1,8 +1,8 @@
 import BookingDetails from "../Components/BookingDetails"
 
-function ShowBooking() {
+function ShowBooking({ rooms }) {
   return (
-    <div><BookingDetails /></div>
+    <div><BookingDetails rooms={rooms} /></div>
   )
 }
 
