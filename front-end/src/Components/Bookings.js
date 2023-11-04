@@ -14,12 +14,13 @@ useEffect(() => {
       .then((response) => setBookings(response.data))
       .catch((err) => console.log(err));
   }, []);
-  
+
   console.log(bookings)
   return (
     <div>
       <div className="booking">
         {bookings.map((booking) => {
+          
           return <Booking id={booking.id} booking={booking} /> 
         })}
         </div>
