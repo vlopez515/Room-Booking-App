@@ -15,11 +15,13 @@ useEffect(() => {
       .catch((err) => console.log(err));
   }, []);
 
+  console.log(bookings)
   return (
     <div>
       <div className="booking">
         {bookings.map((booking) => {
-          return <Booking key={booking.id} booking={booking} /> 
+          
+          return <Booking id={booking.id} booking={booking} /> 
         })}
         </div>
       </div>

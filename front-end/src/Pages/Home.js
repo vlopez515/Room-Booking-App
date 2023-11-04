@@ -2,14 +2,15 @@ import React from "react";
 import AvailableRooms from "../Components/AvailableRooms";
 import MeetingRooms from "../Components/MeetingRooms";
 
-function Home() {
+function Home({ rooms }) {
+
   return (
     <>
       <div>
         <AvailableRooms />
       </div>
       <div>
-        <MeetingRooms />
+        <MeetingRooms rooms={rooms}/>
       </div>
     </>
   );

@@ -1,11 +1,12 @@
 import React from "react";
-import MeetingRoom from "../Components/MeetingRoom";
+import MeetingRoomDetails from "../Components/MeetingRoomDetails";
 
-function Show() {
+
+function Show( {rooms} ) {
   return (
     <>
       <div>
-        <MeetingRoom />
+        <MeetingRoomDetails />
       </div>
     </>
   );

@@ -1,30 +1,24 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import MeetingRoom from './MeetingRoom';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import MeetingRoom from "./MeetingRoom";
+import List from "@mui/material/List";
 
-const API = process.env.REACT_APP_API_URL;
 
-function MeetingRooms() {
-  
-const [meetingRooms, setMeetingRooms] = useState([]);
-
-useEffect(() => {
-    axios
-      .get(`${API}/meetingRooms`)
-      .then((response) => setMeetingRooms(response.data))
-      .catch((err) => console.log(err));
-  }, []);
-
+function MeetingRooms({ rooms }) {
   return (
     <div>
       <div className="room">
-        {meetingRooms.map((room) => {
+        {rooms.map((room) => {
           return (
-          <MeetingRoom key={room.id} room={room} /> 
-          )
+            <List
+              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            >
+              <MeetingRoom key={room.id} room={room} />
+            </List>
+          );
         })}
-        </div>
       </div>
+    </div>
   );
 }
 
