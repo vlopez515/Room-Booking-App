@@ -8,9 +8,14 @@ import Avatar from "@mui/material/Avatar";
 import PeopleIcon from "@mui/icons-material/People";
 import BusinessIcon from "@mui/icons-material/Business";
 import Divider from "@mui/material/Divider";
+import Card from '@mui/material/Card';
+import { CardContent } from "@mui/material";
+
 
 function MeetingRoom({ room }) {
   return (
+    <Card sx={{ minWidth: 275 }} >
+      <CardContent style={{textAlign: "center"}}>
     <Link to={`/meeting-rooms/${room.id}`} style={{ textDecoration: "none", color: 'black' } }>
       <div style={{ cursor: "pointer" }}>
         <h2> {room.name} </h2>
@@ -31,12 +36,9 @@ function MeetingRoom({ room }) {
           <ListItemText primary="Floor" secondary={room.floor} />
         </ListItem>
       </div>
-      <Divider
-        variant="fullWidth"
-        component="li"
-        style={{ background: "black" }}
-      />
     </Link>
+      </CardContent>
+    </Card>
   );
 }
 

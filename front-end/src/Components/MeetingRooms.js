@@ -2,12 +2,19 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import MeetingRoom from "./MeetingRoom";
 import List from "@mui/material/List";
+import Grid from "@mui/material/Grid"
 
 
 function MeetingRooms({ rooms }) {
   return (
     <div>
       <div className="room">
+        <Grid 
+        container 
+        spacing={2}
+        justifyContent='center'
+        alignItems='center'
+        >
         {rooms.map((room) => {
           return (
             <List
@@ -17,6 +24,7 @@ function MeetingRooms({ rooms }) {
             </List>
           );
         })}
+        </Grid>
       </div>
     </div>
   );

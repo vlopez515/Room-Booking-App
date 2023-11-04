@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import Divider from "@mui/material/Divider";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -28,29 +34,39 @@ useEffect(() => {
   };
 
   const selectedMeetingRoom = findMeetingRoom(meeting_room_id);
-
+  
 
   return (
-    <Link to={`/bookings/${id}`} style={{ textDecoration: "none" }}>
+
+    <Link to={`/bookings/${id}`} style={{ textDecoration: "none", color: 'black' }}>
       <div style={{ cursor: "pointer" }}>
-        <div className="p-6 sm:p-12 dark:bg-gray-900 dark:text-gray-100">
-          <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
-            <div className="flex flex-col">
-              <h4 className="text-lg font-semibold text-center md:text-left">
-                {selectedMeetingRoom ? selectedMeetingRoom.name : "Room Name"}
+              <h4>
+                 {selectedMeetingRoom ? selectedMeetingRoom.name : "Room Name"} - {booking.meeting_name}
               </h4>
-              <p className="dark:text-gray-400">{meeting_name}</p>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h4 className="text-sm font-semibold text-center sm:text-left">
-              {start_date}
-            </h4>
-            <p className="dark:text-gray-400">{end_date}</p>
-          </div>
-        </div>
+              <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <AccessTimeIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Start" secondary={new Date(booking.start_date).toLocaleString().replace(',','')} />
+        </ListItem>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <AccessTimeIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="End" secondary={new Date(booking.start_date).toLocaleString().replace(',','')} />
+        </ListItem>
       </div>
+      <Divider
+        variant="fullWidth"
+        component="li"
+        style={{ background: "black" }}
+      />
     </Link>
+    
   );
 }
 
