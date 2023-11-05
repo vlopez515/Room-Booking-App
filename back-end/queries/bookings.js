@@ -54,18 +54,18 @@ const updatedBooking = await db.one("UPDATE bookings SET meeting_name=$1, meetin
   }
 }
 
-const getBookingsBetweenDates = async (startDate, endDate) => {
-  try {
-    const bookings = await db.any(
-      'SELECT * FROM bookings WHERE start_date >= $1 AND end_date <= $2',
-      [startDate, endDate]
-    );
-    return bookings;
-  } catch (error) {
-    console.error('Error in getBookingsBetweenDates:', error);
-    throw new Error('Error fetching bookings between dates');
-  }
-};
+// const getBookingsBetweenDates = async (startDate, endDate) => {
+//   try {
+//     const bookings = await db.any(
+//       'SELECT * FROM bookings WHERE start_date >= $1 AND end_date <= $2',
+//       [startDate, endDate]
+//     );
+//     return bookings;
+//   } catch (error) {
+//     console.error('Error in getBookingsBetweenDates:', error);
+//     throw new Error('Error fetching bookings between dates');
+//   }
+// };
 
 module.exports = {
   getAllBookings,
