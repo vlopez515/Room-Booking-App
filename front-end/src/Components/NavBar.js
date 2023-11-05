@@ -15,7 +15,7 @@ function NavBar() {
 	};
   
 	return (
-		<div style={{ position: 'sticky', top: 0, zIndex: 100, backgroundColor: 'white' }}>
+		<div style={{ position: 'sticky', top: 0, zIndex: 100, backgroundColor: 'grey' }}>
 	  <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
 		<Tabs value={value} onChange={handleChange} centered>
 		  <Tab icon={<MeetingRoomIcon />} label="Meeting Rooms" to="/" component={Link} />

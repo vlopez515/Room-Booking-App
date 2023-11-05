@@ -1,49 +1,92 @@
-function BookRoomForm() {
+import React, { useState } from 'react';
 
-	
-	
-	// const validateEmail = (email) => {
-	// 	return String(email)
-	// 	  .toLowerCase()
-	// 	  .match(
-	// 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-	// 	  );
-	//   };
+const BookingForm = ({ onBookingCreated }) => {
+  const [bookingData, setBookingData] = useState({
+    meetingName: '',
+    meetingRoomId: '', // This can also be set from a prop or from a selection
+    startDate: '',
+    endDate: '',
+    attendees: ''
+  });
+
+  const handleChange = (e) => {
+    setBookingData({ ...bookingData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingData)
+      });
+      if (response.ok) {
+        const newBooking = await response.json();
+        onBookingCreated(newBooking);
+      } else {
+        console.error('Failed to create booking', response);
+      }
+    } catch (error) {
+      console.error('Error submitting form', error);
+    }
+  };
 
   return (
-    <>
-<section className="p-6 dark:bg-gray-800 dark:text-gray-50">
-	<form novalidate="" action="" className="container flex flex-col mx-auto space-y-12">
-		<fieldset className="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
-			<div className="space-y-2 col-span-full lg:col-span-1">
-				<p className="font-medium">Book Room:</p>
-			</div>
-			<div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
-				<div className="col-span-full">
-					<label for="meetingname" className="text-sm">Meeting Name: </label>
-					<input id="meetingname" type="text" placeholder="" className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900" />
-				</div>
-				<div className="col-span-full">
-					<label for="start" className="text-sm">Start: </label>
-					<input id="start" type="text" placeholder="Date & Time" className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900" />
-				</div>
-                <div className="col-span-full">
-					<label for="end" className="text-sm">End: </label>
-					<input id="end" type="text" placeholder="Date & Time" className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900" />
-				</div>
-				<div className="col-span-full">
-					<label for="attendees" className="text-sm">Attendees: </label>
-					<input id="attendees" type="text" placeholder="Email" className="w-full rounded-md focus:ring focus:ri focus:ri dark:border-gray-700 dark:text-gray-900" />
-				</div>
-				<div className="col-span-full">
-                    <button className="self-center px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">Submit</button>
-				</div>
-			</div>
-		</fieldset>
-        </form>
-	</section>
-    </>
-  )
-}
+    <form onSubmit={handleSubmit}>
+      <h2>Create a New Booking</h2>
+      <div>
+        <label>Meeting Name:</label>
+        <input
+          type="text"
+          name="meetingName"
+          value={bookingData.meetingName}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Meeting Room ID:</label>
+        <input
+          type="number"
+          name="meetingRoomId"
+          value={bookingData.meetingRoomId}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Start Date:</label>
+        <input
+          type="datetime-local"
+          name="startDate"
+          value={bookingData.startDate}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>End Date:</label>
+        <input
+          type="datetime-local"
+          name="endDate"
+          value={bookingData.endDate}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Attendees (comma-separated emails):</label>
+        <input
+          type="text"
+          name="attendees"
+          value={bookingData.attendees}
+          onChange={handleChange}
+        />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
 
-export default BookRoomForm;
+export default BookingForm;

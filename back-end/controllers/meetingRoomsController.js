@@ -8,7 +8,6 @@ const {
   updateMeetingRoom, 
 } = require("../queries/meetingRooms.js");
 
-const { getBookingsBetweenDates } = require('../queries/bookings');
 
 
 meetingRooms.get("/", async (req, res) => {
@@ -21,23 +20,10 @@ meetingRooms.get("/", async (req, res) => {
 });
 
 meetingRooms.get("/available", async (req, res) => {
-    const { startDate, endDate } = req.query;
+    const { start_date, end_date, floor, capacity } = req.query
   
     try {
-      // const allMeetingRooms = await getAllMeetingRooms();
-      // const bookingsBetweenDates = await getBookingsBetweenDates(startDate, endDate);
-      // console.log(getBookingsBetweenDates())
-  
-      // const filteredRooms = allMeetingRooms.filter(room => {
-      // const bookingsForRoom = bookingsBetweenDates.filter(booking => booking.meeting_room_id === room.id);
-      // const isAvailable = !bookingsForRoom.length;
-      // const capacityMatch = capacity ? room.capacity >= parseInt(capacity, 10) : true;
-  
-      //   return isAvailable && capacityMatch;
-      // });
-  
-      // res.json(filteredRooms);
-      const availableRooms = await getAvailableRooms(startDate, endDate);
+      const availableRooms = await getAvailableRooms(start_date, end_date, floor, capacity);
       res.json(availableRooms)
     } catch (error) {
       console.error('Error fetching available meeting rooms:', error);

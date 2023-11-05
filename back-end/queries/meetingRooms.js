@@ -9,7 +9,7 @@ const getAllMeetingRooms= async () => {
   }
 };
 
-const getAvailableRooms = async (startDate, endDate) => {
+const getAvailableRooms = async (start_date, end_date, floor, capacity) => {
   try {
     const availableRooms = await db.any(
       `SELECT mr.*
@@ -25,7 +25,7 @@ const getAvailableRooms = async (startDate, endDate) => {
                   OR (br.start_date < $1 AND br.end_date > $2)
                   OR (br.start_date >= $1 AND br.end_date <= $2)
           )`,
-      [startDate, endDate]
+      [start_date, end_date, floor, capacity]
     );
     return availableRooms;
   } catch (error) {
