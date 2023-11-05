@@ -7,6 +7,8 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import Divider from "@mui/material/Divider";
+import Card from '@mui/material/Card';
+import { CardContent } from "@mui/material";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -34,10 +36,48 @@ useEffect(() => {
   };
 
   const selectedMeetingRoom = findMeetingRoom(meeting_room_id);
+
+//   function formatTime (date) {
+//     const year = date.getUTCFullYear();
+//     const month = date.getUTCMonth() + 1; // Months are zero-indexed, so add 1
+//     const day = date.getUTCDate();
+//     const hours = date.getUTCHours();
+//     const minutes = date.getUTCMinutes();
+
+// const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
+//   }
+
+
+const formattedDate = new Date(booking.start_date)
+
+const options = {
+  timeZone: 'America/New_York', 
+  timeZoneName : 'short', 
+  hour12: false, 
+  year: 'numeric', 
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit', 
+  minute: '2-digit', 
+  second: '2-digit', 
+}; 
+
+const estTime = new Intl.DateTimeFormat('en-US', options).format(formattedDate)
+// const formatDate = (d) => {
+//   return new Date(d).toLocaleString();
+// }
+ 
   
-
+  
+  console.log(id)
   return (
-
+    <Card sx={{ 
+      minWidth: 275, 
+      ':hover': {
+        boxShadow: 20, 
+      }, 
+      }} >
+      <CardContent style={{textAlign: "center"}}>
     <Link to={`/bookings/${id}`} style={{ textDecoration: "none", color: 'black' }}>
       <div style={{ cursor: "pointer" }}>
               <h4>
@@ -57,16 +97,12 @@ useEffect(() => {
               <AccessTimeIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="End" secondary={new Date(booking.start_date).toLocaleString().replace(',','')} />
+          <ListItemText primary="End" secondary={new Date(booking.end_date).toLocaleString().replace(',','')} />
         </ListItem>
       </div>
-      <Divider
-        variant="fullWidth"
-        component="li"
-        style={{ background: "black" }}
-      />
     </Link>
-    
+    </CardContent>
+    </Card>
   );
 }
 

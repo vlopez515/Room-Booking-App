@@ -10,18 +10,17 @@ function MeetingRooms({ rooms }) {
     <div>
       <div className="room">
         <Grid 
-        container 
-        spacing={2}
-        justifyContent='center'
-        alignItems='center'
+         container
+         spacing={{ xs: 2, md: 3 }}
+         columns={{ xs: 4, sm: 8, md: 12 }}
+         justifyContent="center"
+         alignItems="center"
         >
-        {rooms.map((room) => {
+        {rooms.map((room, index) => {
           return (
-            <List
-              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-            >
+            <Grid item xs={2} sm={4} md={4} key={index}>
               <MeetingRoom key={room.id} room={room} />
-            </List>
+            </Grid>
           );
         })}
         </Grid>

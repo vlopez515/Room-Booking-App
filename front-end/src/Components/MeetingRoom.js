@@ -14,7 +14,12 @@ import { CardContent } from "@mui/material";
 
 function MeetingRoom({ room }) {
   return (
-    <Card sx={{ minWidth: 275 }} >
+    <Card sx={{ 
+      minWidth: 275, 
+      ':hover': {
+        boxShadow: 20, 
+      }, 
+      }} >
       <CardContent style={{textAlign: "center"}}>
     <Link to={`/meeting-rooms/${room.id}`} style={{ textDecoration: "none", color: 'black' } }>
       <div style={{ cursor: "pointer" }}>

@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 
-
 const API = process.env.REACT_APP_API_URL;
 
 function BookingDetails({ rooms }) {
@@ -12,17 +11,17 @@ function BookingDetails({ rooms }) {
     const { id } = useParams()
     
     useEffect(() => {
-
         axios.get(`${API}/bookings/${id}`).then((response) => {
           setBooking(response.data);
         })
-        , []});
+        , [id]});
 
 
     const handleCancel = (e) => {
         console.log('hello')
     }
     const specificRoom = rooms?.find((room)=> room.id === booking.meeting_room_id)
+
 
   return (
     <>
