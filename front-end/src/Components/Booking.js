@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import Divider from "@mui/material/Divider";
+import Card from '@mui/material/Card';
+import { CardContent } from "@mui/material";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -29,28 +37,72 @@ useEffect(() => {
 
   const selectedMeetingRoom = findMeetingRoom(meeting_room_id);
 
+//   function formatTime (date) {
+//     const year = date.getUTCFullYear();
+//     const month = date.getUTCMonth() + 1; // Months are zero-indexed, so add 1
+//     const day = date.getUTCDate();
+//     const hours = date.getUTCHours();
+//     const minutes = date.getUTCMinutes();
 
+// const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
+//   }
+
+
+const formattedDate = new Date(booking.start_date)
+
+const options = {
+  timeZone: 'America/New_York', 
+  timeZoneName : 'short', 
+  hour12: false, 
+  year: 'numeric', 
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit', 
+  minute: '2-digit', 
+  second: '2-digit', 
+}; 
+
+const estTime = new Intl.DateTimeFormat('en-US', options).format(formattedDate)
+// const formatDate = (d) => {
+//   return new Date(d).toLocaleString();
+// }
+ 
+  
+  
+  console.log(id)
   return (
-    <Link to={`/bookings/${id}`} style={{ textDecoration: "none" }}>
+    <Card sx={{ 
+      minWidth: 275, 
+      ':hover': {
+        boxShadow: 20, 
+      }, 
+      }} >
+      <CardContent style={{textAlign: "center"}}>
+    <Link to={`/bookings/${id}`} style={{ textDecoration: "none", color: 'black' }}>
       <div style={{ cursor: "pointer" }}>
-        <div className="p-6 sm:p-12 dark:bg-gray-900 dark:text-gray-100">
-          <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-6 md:flex-row">
-            <div className="flex flex-col">
-              <h4 className="text-lg font-semibold text-center md:text-left">
-                {selectedMeetingRoom ? selectedMeetingRoom.name : "Room Name"}
+              <h4>
+                 {selectedMeetingRoom ? selectedMeetingRoom.name : "Room Name"} - {booking.meeting_name}
               </h4>
-              <p className="dark:text-gray-400">{meeting_name}</p>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h4 className="text-sm font-semibold text-center sm:text-left">
-              {start_date}
-            </h4>
-            <p className="dark:text-gray-400">{end_date}</p>
-          </div>
-        </div>
+              <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <AccessTimeIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="Start" secondary={new Date(booking.start_date).toLocaleString().replace(',','')} />
+        </ListItem>
+        <ListItem>
+          <ListItemAvatar>
+            <Avatar>
+              <AccessTimeIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary="End" secondary={new Date(booking.end_date).toLocaleString().replace(',','')} />
+        </ListItem>
       </div>
     </Link>
+    </CardContent>
+    </Card>
   );
 }
 

@@ -19,7 +19,6 @@ function MeetingRoomDetails() {
   
     axios.get(`${API}/bookings`).then((response) => {
       setBookings(response.data);
-  
     });
   }, [id]);
   
