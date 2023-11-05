@@ -38,6 +38,7 @@ function BookingDetails({ rooms }) {
 
   let navigate = useNavigate();
 
+
   const handleDelete = () => {
     axios.delete(`${API}/bookings/${id}`)
       .then((response) => {
@@ -45,6 +46,7 @@ function BookingDetails({ rooms }) {
       })
       .catch((error) => console.log(error));
   };
+
 
   const specificRoom = rooms?.find(
     (room) => room.id === booking.meeting_room_id

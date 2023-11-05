@@ -38,15 +38,26 @@ bookings.post("/", async (req, res) => {
   });
 
 
+// bookings.delete("/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const deletedBooking = await deleteBooking(id);
+//   if (deletedBooking.id) {
+//     res.status(200).json(deletedBooking)
+//   } else {
+//     res.status(404).json("Booking not found!");
+//   }
+// });
+
 bookings.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const deletedBooking = await deleteBooking(id);
-  if (deletedBooking.id) {
-    res.status(200).json(deletedBooking)
+  const deletionResult = await deleteBooking(id);
+  if (deletionResult) {
+    res.status(200).json({ message: "Booking deleted successfully" });
   } else {
-    res.status(404).json("Booking not found!");
+    res.status(404).json({ error: "Booking not found" });
   }
 });
+
 
 bookings.put("/:id", async (req, res) => {
   const { id } = req.params;

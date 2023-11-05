@@ -9,6 +9,30 @@ const getAllMeetingRooms= async () => {
   }
 };
 
+const getAvailableRooms = async (startDate, endDate) => {
+  try {
+    const availableRooms = await db.any(
+      `SELECT mr.*
+      FROM meetingRooms mr
+      WHERE
+          mr.id NOT IN (
+              SELECT
+                  br.meeting_room_id
+              FROM
+                  bookings br
+              WHERE
+                  (br.start_date < $2 AND br.end_date > $1)
+                  OR (br.start_date < $1 AND br.end_date > $2)
+                  OR (br.start_date >= $1 AND br.end_date <= $2)
+          )`,
+      [startDate, endDate]
+    );
+    return availableRooms;
+  } catch (error) {
+    return error;
+  }
+};
+
 const getMeetingRoom = async (id) => {
   try {
     console.log(id);
@@ -62,5 +86,6 @@ module.exports = {
     getMeetingRoom, 
     createMeetingRoom, 
     deleteMeetingRoom,
-    updateMeetingRoom
+    updateMeetingRoom,
+    getAvailableRooms,
   };

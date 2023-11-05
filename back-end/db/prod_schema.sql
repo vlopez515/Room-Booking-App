@@ -7,6 +7,8 @@ CREATE TABLE meetingRooms (
     floor INTEGER
 );
 
+DROP TABLE IF EXISTS bookings;
+
 CREATE TABLE bookings (
     id SERIAL PRIMARY KEY, 
     meeting_name TEXT, 

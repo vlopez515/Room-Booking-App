@@ -21,22 +21,24 @@ meetingRooms.get("/", async (req, res) => {
 });
 
 meetingRooms.get("/available", async (req, res) => {
-    const { startDate, endDate, capacity } = req.query;
+    const { startDate, endDate } = req.query;
   
     try {
-      const allMeetingRooms = await getAllMeetingRooms();
-      const bookingsBetweenDates = await getBookingsBetweenDates(startDate, endDate);
-      console.log(getBookingsBetweenDates())
+      // const allMeetingRooms = await getAllMeetingRooms();
+      // const bookingsBetweenDates = await getBookingsBetweenDates(startDate, endDate);
+      // console.log(getBookingsBetweenDates())
   
-      const filteredRooms = allMeetingRooms.filter(room => {
-      const bookingsForRoom = bookingsBetweenDates.filter(booking => booking.meeting_room_id === room.id);
-      const isAvailable = !bookingsForRoom.length;
-      const capacityMatch = capacity ? room.capacity >= parseInt(capacity, 10) : true;
+      // const filteredRooms = allMeetingRooms.filter(room => {
+      // const bookingsForRoom = bookingsBetweenDates.filter(booking => booking.meeting_room_id === room.id);
+      // const isAvailable = !bookingsForRoom.length;
+      // const capacityMatch = capacity ? room.capacity >= parseInt(capacity, 10) : true;
   
-        return isAvailable && capacityMatch;
-      });
+      //   return isAvailable && capacityMatch;
+      // });
   
-      res.json(filteredRooms);
+      // res.json(filteredRooms);
+      const availableRooms = await getAvailableRooms(startDate, endDate);
+      res.json(availableRooms)
     } catch (error) {
       console.error('Error fetching available meeting rooms:', error);
       res.status(500).json({ error: 'Error fetching available meeting rooms' });
