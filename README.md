@@ -23,7 +23,7 @@ To install Meeting Room Booker, follow these steps:
 
 1. Clone the repository:
 
-git clone https://github.com/your-username/Room-Booking-App.git
+git clone https://github.com/vlopez515/Room-Booking-App.git
 cd Room-Booking-App
 
 2. Install the backend dependencies and start the server:
@@ -44,7 +44,7 @@ After installation, you can use the app by navigating to http://localhost:3000 i
 
 @yourusername
 Contact
-If you want to contact me you can reach me at your_email@address.com.
+If you want to contact me you can reach me at victorlopez@pursuit.org
 
 
 
