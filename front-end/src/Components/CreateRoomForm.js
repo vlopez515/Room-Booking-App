@@ -1,85 +1,104 @@
-import { redirect, useState } from 'react';
-import axios from 'axios';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import { redirect, useState } from "react";
+import axios from "axios";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import "./Form.css";
 
 const API = process.env.REACT_APP_API_URL;
 
 function CreateRoomForm() {
-
   const [meetingRoom, setMeetingRoom] = useState({
-    name: '',
-    floor: 0,
-    capacity: 0,
+    name: "",
+    floor: null,
+    capacity: null,
   });
-    
-    const addMeetingRoom = (newMeetingRoom) => {
-       axios
-         .post(`${API}/meetingRooms`, newMeetingRoom)
-         .then(
-           () => {
-             redirect(`/meetingRooms`);
-           },
-           (error) => console.error(error)
-         )
-         .catch((c) => console.warn("catch", c));
-     };
-   
-     
-     const handleTextChange = (event) => {
-       setMeetingRoom({ ...meetingRoom, [event.target.id]: event.target.value });
-     };
-   
-     const handleSubmit = (event) => {
-       event.preventDefault();
-       addMeetingRoom(meetingRoom);
-     };
+
+  const handleTextChange = (event) => {
+    setMeetingRoom({ ...meetingRoom, [event.target.id]: event.target.value });
+    console.log(meetingRoom);
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setMeetingRoom({ ...meetingRoom, [name]: value });
+  };
+
+  const addMeetingRoom = (newMeetingRoom) => {
+    axios
+      .post(`${API}/meetingRooms`, newMeetingRoom)
+      .then(
+        () => {
+          redirect(`/meetingRooms`);
+        },
+        (error) => console.error(error)
+      )
+      .catch((c) => console.warn("catch", c));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(meetingRoom);
+    addMeetingRoom(meetingRoom);
+    alert("success");
+  };
 
   return (
-    <Box
-    component="form"
-    sx={{
-      "& .MuiTextField-root": { m: 1, width: "25ch" },
-    }}
-    noValidate
-    autoComplete="off"
-    onSubmit={handleSubmit}
-  >
-    <div>
-    <div>
-    <p className="font-medium">Create Room</p>
-        </div>
-        <TextField
-          required
-          id="Name"
-          type="text"
-          label="Name"
-          onTextChange={handleTextChange}
-          
-        />
-        <TextField
-          required
-          id="Capacity"
-          type="number"
-          label="Capacity"
-          
-          onTextChange={handleTextChange}
-        />
-        <TextField
-          required
-          id="Floor"
-          type="number"
-          label="Floor"
-          
-          onTextChange={handleTextChange}
-        />
-      </div>
-      <Button>
-      <Button variant="outlined">Submit</Button>
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "20px",
+      }}
+    >
+      <h1>Create a New Room</h1>
+      <TextField
+        label="Name"
+        type="text"
+        name="name"
+        value={meetingRoom.name}
+        onChange={handleInputChange}
+        required
+        style={{ width: "50%" }}
+      />
+      <TextField
+        label="Capacity"
+        variant="outlined"
+        type="number"
+        name="capacity"
+        InputProps={{
+          inputProps: { min: 0 },
+        }}
+        style={{ width: "50%" }}
+        value={meetingRoom.capacity}
+        onChange={handleInputChange}
+        required
+      />
+      <TextField
+        label="Floor"
+        variant="outlined"
+        type="number"
+        name="floor"
+        InputProps={{
+          inputProps: { min: 0 },
+        }}
+        style={{ width: "50%" }}
+        value={meetingRoom.floor}
+        onChange={handleInputChange}
+        required
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        style={{ width: "50%" }}
+      >
+        Submit
       </Button>
-  </Box>
-  )
+    </form>
+  );
 }
 
 export default CreateRoomForm;

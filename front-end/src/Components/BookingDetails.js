@@ -5,6 +5,8 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -38,6 +40,7 @@ function BookingDetails({ rooms }) {
 
   let navigate = useNavigate();
 
+
   const handleDelete = () => {
     axios.delete(`${API}/bookings/${id}`)
       .then((response) => {
@@ -46,18 +49,31 @@ function BookingDetails({ rooms }) {
       .catch((error) => console.log(error));
   };
 
+
   const specificRoom = rooms?.find(
     (room) => room.id === booking.meeting_room_id
   );
 
   return (
-    <>
-      <h2> {booking.meeting_name} </h2>
+    <Box
+      display="flex" 
+      flexDirection="column" 
+      alignItems="center" 
+      justifyContent="center" 
+      minHeight="100vh" 
+    >
+      <h1> {booking.meeting_name} </h1>
+      <Avatar>
+        <AccessTimeIcon />
+      </Avatar>
       <p>
-        Start: {new Date(booking.start_date).toLocaleString().replace(",", "")}{" "}
+        Start: {new Date(booking.start_date).toLocaleString().replace(",", "")}
       </p>
+      <Avatar>
+        <AccessTimeIcon />
+      </Avatar>
       <p>
-        End: {new Date(booking.end_date).toLocaleString().replace(",", "")}{" "}
+        End: {new Date(booking.end_date).toLocaleString().replace(",", "")}
       </p>
       <p>Floor: {specificRoom?.floor} </p>
       <div>
@@ -72,13 +88,16 @@ function BookingDetails({ rooms }) {
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Are you sure you want to cancel this booking?
             </Typography>
-            <Button onClick={handleDelete}>Yes</Button>
-            <Button onClick={handleClose}>No </Button>
+            <Box textAlign="center" pt={2}>
+              <Button onClick={handleDelete}>Yes</Button>
+              <Button onClick={handleClose}>No</Button>
+            </Box>
           </Box>
         </Modal>
       </div>
-    </>
+    </Box>
   );
 }
+
 
 export default BookingDetails;

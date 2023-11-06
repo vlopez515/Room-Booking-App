@@ -22,13 +22,14 @@ const createBooking = async (booking) => {
   const { meeting_name, meeting_room_id, start_date, end_date, attendees } = booking;
   try {
     const newBooking = await db.one(
-      "INSERT INTO bookings (meeting_name, meeting_room_id, start_date, end_date, attendees) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      `INSERT INTO bookings (meeting_name, meeting_room_id, start_date, end_date, attendees)
+       VALUES ($1, $2, $3, $4, $5) RETURNING *`,
       [meeting_name, meeting_room_id, start_date, end_date, attendees]
-
     );
     return newBooking;
   } catch (error) {
-    return error;
+    console.error(error);
+    throw error; 
   }
 };
 
@@ -54,18 +55,18 @@ const updatedBooking = await db.one("UPDATE bookings SET meeting_name=$1, meetin
   }
 }
 
-const getBookingsBetweenDates = async (startDate, endDate) => {
-  try {
-    const bookings = await db.any(
-      'SELECT * FROM bookings WHERE start_date >= $1 AND end_date <= $2',
-      [startDate, endDate]
-    );
-    return bookings;
-  } catch (error) {
-    console.error('Error in getBookingsBetweenDates:', error);
-    throw new Error('Error fetching bookings between dates');
-  }
-};
+// const getBookingsBetweenDates = async (startDate, endDate) => {
+//   try {
+//     const bookings = await db.any(
+//       'SELECT * FROM bookings WHERE start_date >= $1 AND end_date <= $2',
+//       [startDate, endDate]
+//     );
+//     return bookings;
+//   } catch (error) {
+//     console.error('Error in getBookingsBetweenDates:', error);
+//     throw new Error('Error fetching bookings between dates');
+//   }
+// };
 
 module.exports = {
   getAllBookings,

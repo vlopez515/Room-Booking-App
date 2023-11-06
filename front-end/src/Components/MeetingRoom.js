@@ -18,7 +18,8 @@ function MeetingRoom({ room }) {
       minWidth: 275, 
       ':hover': {
         boxShadow: 20, 
-      }, 
+      },
+      backgroundColor: "#7AB3EF"
       }} >
       <CardContent style={{textAlign: "center"}}>
     <Link to={`/meeting-rooms/${room.id}`} style={{ textDecoration: "none", color: 'black' } }>

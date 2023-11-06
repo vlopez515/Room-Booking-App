@@ -1,127 +1,61 @@
-// import { useState } from "react";
-// import axios from "axios";
-// import Box from '@mui/material/Box';
-// import TextField from '@mui/material/TextField';
-// import Button from '@mui/material/Button';
-
-// const API = process.env.REACT_APP_API_URL;
-
-// function AvailableRooms() {
-//   const [availableRooms, setAvailableRooms] = useState([]);
-//   const [startDate, setStartDate] = useState('');
-//   const [endDate, setEndDate] = useState('');
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-//     console.log("here")
-//     try {
-//       const response = await axios.get(`${API}/meetingRooms/available`, {
-//         params: { start_date: startDate, end_date: endDate },
-//       });
-//       console.log(response.data);
-//       setAvailableRooms(response.data);
-//     } catch (error) {
-//       console.error("Error fetching available meeting rooms:", error);
-//     }
-//   };
-
-//   const handleStartDateChange= (event) => {
-//     setStartDate(event.target.value)
-//     // setAvailableRooms({ ...availableRooms, [event.target.id]: event.target.value });
-//   };
-
-//   const handleEndDateChange= (event) => {
-//     setEndDate(event.target.value)
-//     // setAvailableRooms({ ...availableRooms, [event.target.id]: event.target.value });
-//   };
-
-//   return (
-//     <Box
-//       component="form"
-//       sx={{
-//         "& .MuiTextField-root": { m: 1, width: "25ch" },
-//       }}
-//       noValidate
-//       autoComplete="off"
-//       onSubmit={handleSubmit}
-//     >
-//       <div>
-//         <div>
-//           <p className="font-medium">Find available rooms:</p>
-//         </div>
-//         <TextField
-//           required
-//           id="start_date"
-//           value={startDate}
-//           type="datetime-local"
-//           onDateChange={handleStartDateChange}
-//         />
-//         <TextField
-//           required
-//           id="end_date"
-//           value={endDate}
-//           type="datetime-local"
-//           onDateChange={handleEndDateChange}
-//         />
-//         <TextField
-         
-//           id="Floor"
-//           label="Floor"
-          
-//         />
-//         <TextField
-         
-//           id="Capacity"
-//           label="Capacity"
-          
-//         />
-//       </div>
-      
-//       <Button type="submit" variant="outlined"> Find </Button>
-      
-//     </Box>
-//   );
-// }
-
-// export default AvailableRooms;
-
 import React, { useState } from "react";
 import axios from "axios";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import { Container } from "@mui/system";
-import './AvailableRooms.css';
+import Alert from '@mui/material/Alert';
+import "./AvailableRooms.css";
+import AvailableRoomsList from "./AvailableRoomsList";
 
 const API = process.env.REACT_APP_API_URL;
 
 function AvailableRooms() {
-  // Define state variables to store form input values
   const [formData, setFormData] = useState({
-    start_date: '',
-    end_date: '',
-    floor: '',
-    capacity: '',
+    start_date: "",
+    end_date: "",
+    floor: "",
+    capacity: "",
   });
-
-  // Define state variable to store available rooms
+  const [errors, setErrors] = useState({});
   const [availableRooms, setAvailableRooms] = useState([]);
+  const [searchAttempted, setSearchAttempted] = useState(false);
+
+  const validate = () => {
+    let tempErrors = {};
+    if (!formData.start_date) {
+      tempErrors.start_date = 'Start date is required.';
+    }
+    if (!formData.end_date) {
+      tempErrors.end_date = 'End date is required.';
+    }
+    if (formData.capacity && isNaN(formData.capacity)) {
+      tempErrors.capacity = 'Capacity must be a number.';
+    }
+    if (formData.capacity && parseInt(formData.capacity, 10) < 1) {
+      tempErrors.capacity = 'Capacity must be greater than 0.';
+    }
+    setErrors(tempErrors);
+    return Object.keys(tempErrors).length === 0;
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('step 1')
+    if (!validate()) return;
+    if (!validate()) return;
+    setSearchAttempted(true);
+
+    const queryParams = {
+      start_date: formData.start_date,
+      end_date: formData.end_date,
+
+      ...(formData.floor && { floor: formData.floor }),
+      ...(formData.capacity && { capacity: formData.capacity }),
+    };
+
     try {
-      // Make an API request to fetch available meeting rooms
-      const response = await axios.get(`${API}/meetingRooms/available`, {
-        params: {
-          start_date: formData.start_date,
-          end_date: formData.end_date,
-          floor: formData.floor,
-          capacity: formData.capacity,
-        },
-      });
+      const response = await axios.get(`${API}/meetingRooms/available`, { params: queryParams });
       console.log(response.data)
-      // Update the available rooms state with the response data
       setAvailableRooms(response.data);
     } catch (error) {
       console.error("Error fetching available meeting rooms:", error);
@@ -129,62 +63,82 @@ function AvailableRooms() {
   };
 
   const handleTextChange = (event) => {
-    // Update the formData state with the input values based on the event target's id
     setFormData({
       ...formData,
       [event.target.id]: event.target.value,
+    });
+
+    setErrors({
+      ...errors,
+      [event.target.id]: "",
     });
   };
 
   return (
     <Container>
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit}
-      
-    >
-      <div>
+      <Box
+        component="form"
+        sx={{ "& .MuiTextField-root": { m: 1, width: "25ch" } }}
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
         <div>
-          <p className="font-medium">Find available rooms:</p>
+          <div>
+            <p className="font-medium">Find available rooms:</p>
+          </div>
+          <TextField
+            required
+            id="start_date"
+            label="Start Date"
+            type="datetime-local"
+            onChange={handleTextChange}
+            value={formData.start_date}
+            error={!!errors.start_date}
+            helperText={errors.start_date}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <TextField
+            required
+            id="end_date"
+            label="End Date"
+            type="datetime-local"
+            onChange={handleTextChange}
+            value={formData.end_date}
+            error={!!errors.end_date}
+            helperText={errors.end_date}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <TextField
+            id="floor"
+            label="Floor (optional)"
+            onChange={handleTextChange}
+            value={formData.floor}
+            error={!!errors.floor}
+            helperText={errors.floor}
+          />
+          <TextField
+            id="capacity"
+            label="Capacity (optional)"
+            type="number"
+            onChange={handleTextChange}
+            value={formData.capacity}
+            error={!!errors.capacity}
+            helperText={errors.capacity}
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Find Rooms
+          </Button>
         </div>
-        <TextField
-          required
-          id="start_date"
-          type="datetime-local"
-          onChange={handleTextChange}
-          value={formData.start_date} // Bind input value to state
-        />
-        <TextField
-          required
-          id="end_date"
-          type="datetime-local"
-          onChange={handleTextChange}
-          value={formData.end_date} // Bind input value to state
-        />
-        <TextField
-          id="floor"
-          label="Floor"
-          onChange={handleTextChange}
-          value={formData.floor} // Bind input value to state
-        />
-        <TextField
-          id="capacity"
-          label="Capacity"
-          onChange={handleTextChange}
-          value={formData.capacity} // Bind input value to state
-        />
-        <Button type="submit" variant="outlined">Find</Button>
-        
-      </div>
-      
-      
-      
-    </Box>
+      </Box>
+      {searchAttempted && availableRooms.length === 0 && (
+    <Alert severity="info">No rooms available. Please adjust your search criteria.</Alert>
+      )}
+      <AvailableRoomsList rooms={availableRooms} />
     </Container>
   );
 }
