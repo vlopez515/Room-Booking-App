@@ -62,6 +62,7 @@ const estTime = new Intl.DateTimeFormat('en-US', options).format(formattedDate)
       ':hover': {
         boxShadow: 20, 
       }, 
+      backgroundColor: "#7AB3EF"
       }} >
       <CardContent style={{textAlign: "center"}}>
     <Link to={`/bookings/${id}`} style={{ textDecoration: "none", color: 'black' }}>
