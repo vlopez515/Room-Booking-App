@@ -20,16 +20,19 @@ meetingRooms.get("/", async (req, res) => {
 });
 
 meetingRooms.get("/available", async (req, res) => {
-    const { start_date, end_date, floor, capacity } = req.query
-  
-    try {
-      const availableRooms = await getAvailableRooms(start_date, end_date, floor, capacity);
-      res.json(availableRooms)
-    } catch (error) {
-      console.error('Error fetching available meeting rooms:', error);
-      res.status(500).json({ error: 'Error fetching available meeting rooms' });
-    }
-  });
+  const { start_date, end_date, floor, capacity } = req.query;
+
+  const capacityParam = capacity ? parseInt(capacity, 10) : undefined;
+
+  try {
+    const availableRooms = await getAvailableRooms(start_date, end_date, floor, capacityParam);
+    res.json(availableRooms);
+  } catch (error) {
+    console.error('Error fetching available meeting rooms:', error);
+    res.status(500).json({ error: 'Error fetching available meeting rooms' });
+  }
+});
+
 
 meetingRooms.get("/:id", async (req, res) => {
   const { id } = req.params;

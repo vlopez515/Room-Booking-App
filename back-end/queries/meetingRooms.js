@@ -10,28 +10,38 @@ const getAllMeetingRooms= async () => {
 };
 
 const getAvailableRooms = async (start_date, end_date, floor, capacity) => {
+
+  const startDate = new Date(start_date);
+  const endDate = new Date(end_date);
+
+  let queryParams = [startDate, endDate]; // Use parsed Date objects
+  let floorCondition = '';
+  let capacityCondition = '';
+
+  const query = `
+    SELECT mr.*
+    FROM meeting_rooms mr
+    WHERE 
+        mr.floor = COALESCE($3, mr.floor) 
+        AND mr.capacity >= COALESCE($4, mr.capacity)
+        AND NOT EXISTS (
+            SELECT 1 FROM bookings 
+            WHERE 
+                bookings.meeting_room_id = mr.id
+                AND NOT (bookings.start_date > $2 OR bookings.end_date < $1)
+        )
+  `;
+
   try {
-    const availableRooms = await db.any(
-      `SELECT mr.*
-      FROM meetingRooms mr
-      WHERE
-          mr.id NOT IN (
-              SELECT
-                  br.meeting_room_id
-              FROM
-                  bookings br
-              WHERE
-                  (br.start_date < $2 AND br.end_date > $1)
-                  OR (br.start_date < $1 AND br.end_date > $2)
-                  OR (br.start_date >= $1 AND br.end_date <= $2)
-          )`,
-      [start_date, end_date, floor, capacity]
-    );
+    const availableRooms = await db.any(query, queryParams);
     return availableRooms;
   } catch (error) {
-    return error;
+    console.error('Error in getAvailableRooms:', error);
+    throw error;
   }
 };
+
+
 
 const getMeetingRoom = async (id) => {
   try {

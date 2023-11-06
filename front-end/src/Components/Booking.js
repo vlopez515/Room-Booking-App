@@ -37,16 +37,6 @@ useEffect(() => {
 
   const selectedMeetingRoom = findMeetingRoom(meeting_room_id);
 
-//   function formatTime (date) {
-//     const year = date.getUTCFullYear();
-//     const month = date.getUTCMonth() + 1; // Months are zero-indexed, so add 1
-//     const day = date.getUTCDate();
-//     const hours = date.getUTCHours();
-//     const minutes = date.getUTCMinutes();
-
-// const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
-//   }
-
 
 const formattedDate = new Date(booking.start_date)
 
@@ -63,11 +53,7 @@ const options = {
 }; 
 
 const estTime = new Intl.DateTimeFormat('en-US', options).format(formattedDate)
-// const formatDate = (d) => {
-//   return new Date(d).toLocaleString();
-// }
- 
-  
+
   
   console.log(id)
   return (

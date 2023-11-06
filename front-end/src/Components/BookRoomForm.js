@@ -1,92 +1,120 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-const BookingForm = ({ onBookingCreated }) => {
-  const [bookingData, setBookingData] = useState({
-    meetingName: '',
-    meetingRoomId: '', // This can also be set from a prop or from a selection
-    startDate: '',
-    endDate: '',
-    attendees: ''
+const API = process.env.REACT_APP_API_URL
+
+const BookingForm = () => {
+  const [booking, setBooking] = useState({
+    meeting_name: "",
+    meeting_room_id: "",
+    start_date: "",
+    end_date: "",
+    attendees: 0,
   });
 
-  const handleChange = (e) => {
-    setBookingData({ ...bookingData, [e.target.name]: e.target.value });
+  let { id } = useParams();
+  let navigate= useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      setBooking(prevBooking => ({
+        ...prevBooking,
+        meeting_room_id: id 
+      }));
+    }
+  }, [id]); 
+
+  const handleTextChange = (event) => {
+	const { name, value } = event.target;
+	setBooking({ ...booking, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('/api/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(bookingData)
-      });
-      if (response.ok) {
-        const newBooking = await response.json();
-        onBookingCreated(newBooking);
-      } else {
-        console.error('Failed to create booking', response);
-      }
-    } catch (error) {
-      console.error('Error submitting form', error);
-    }
+  
+  const addBooking = (newBooking) => {
+	return axios.post(`${API}/bookings`, newBooking);
   };
+  
+  const handleSubmit = (event) => {
+	event.preventDefault();
+	addBooking(booking)
+	  .then(() => {
+		navigate('/bookings');
+	  })
+	  .catch((error) => {
+		console.error(error);
+		alert("There was an error creating the booking.");
+	  });
+  };
+  
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Create a New Booking</h2>
-      <div>
-        <label>Meeting Name:</label>
-        <input
-          type="text"
-          name="meetingName"
-          value={bookingData.meetingName}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Meeting Room ID:</label>
-        <input
-          type="number"
-          name="meetingRoomId"
-          value={bookingData.meetingRoomId}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Start Date:</label>
-        <input
-          type="datetime-local"
-          name="startDate"
-          value={bookingData.startDate}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>End Date:</label>
-        <input
-          type="datetime-local"
-          name="endDate"
-          value={bookingData.endDate}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Attendees (comma-separated emails):</label>
-        <input
-          type="text"
-          name="attendees"
-          value={bookingData.attendees}
-          onChange={handleChange}
-        />
-      </div>
-      <button type="submit">Submit</button>
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "20px",
+      }}
+    >
+      <h1>Create a New Booking</h1>
+      <TextField
+        label="Name"
+        type="text"
+        name="meeting_name"
+        value={booking.meeting_name}
+        onChange={handleTextChange}
+        required
+        style={{ width: "50%" }}
+      />
+      <TextField
+        variant="outlined"
+        type="datetime-local"
+        name="start_date"
+        style={{ width: "50%" }}
+        value={booking.start_date}
+        onChange={handleTextChange}
+        required
+      />
+      <TextField
+        variant="outlined"
+        type="datetime-local"
+        name="end_date"
+        InputProps={{
+          inputProps: { min: 0 },
+        }}
+        style={{ width: "50%" }}
+        value={booking.end_date}
+        onChange={handleTextChange}
+        required
+      />
+      <TextField
+        label="Attendees"
+        variant="outlined"
+        type="number"
+        name="attendees"
+        InputProps={{
+          inputProps: { min: 0 },
+        }}
+        style={{ width: "50%" }}
+        value={booking.attendees}
+        onChange={handleTextChange}
+        required
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        style={{ width: "50%" }}
+      >
+        Submit
+      </Button>
     </form>
   );
-};
+}
 
 export default BookingForm;

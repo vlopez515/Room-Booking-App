@@ -27,7 +27,7 @@ function MeetingRoomDetails() {
   
 
   const conflicts = bookings.filter((booking) => booking.meeting_room_id === Number(id));
-  console.log(conflicts)
+  
 
   return (
     <div>
